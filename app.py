@@ -76,6 +76,9 @@ payload = {
     # 'end_date': date
 }
 
+# TODO: some results return 'media_type': 'video', this is wrong and we will encounter problems so we must
+#   try again and get a new result
+
 endpoint = 'https://api.nasa.gov/planetary/apod'
 try:
     r = requests.get(endpoint, params=payload)
