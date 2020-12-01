@@ -4,12 +4,16 @@ import json
 import requests
 from prettyprinter import pprint
 import random
+import os
+from dotenv import load_dotenv
 
-# TODO: protect your key
-key='ddoOH0QwXpcTGp5Hsyv8kxYDbdheTri8sDBp36qX'
+# These 3 lines take steps to protect private api key
+load_dotenv()
+key = os.getenv('MY_ENV_VAR')
+endpoint = os.getenv('ENDPOINT')
 
 def dateCheck(year, month, day):
-    Leap = False
+    leap = False
     # msg': 'Date must be between Jun 16, 1995 and Dec 01, 2020.'
     # Since our range is so small we can account for all leap years available in this limit
 
@@ -29,15 +33,15 @@ def dateCheck(year, month, day):
 
     # Check for leap year
     if year % 4 == 0:
-        Leap = True
+        leap = True
 
     # Check February
     if month == 2:
         # If its not a leap year and over limit 28 days, reassign day
-        if day > 28 and not Leap:
+        if day > 28 and not leap:
             return dateCheck(year, month, random.randrange(1, 29))
         # If leap year and over limit 29 days, reassign day
-        elif day > 29 and Leap:
+        elif day > 29 and leap:
             return dateCheck(year, month, random.randrange(1, 30))
 
     # Check April day limit
@@ -79,7 +83,6 @@ payload = {
 # TODO: some results return 'media_type': 'video', this is wrong and we will encounter problems so we must
 #   try again and get a new result
 
-endpoint = 'https://api.nasa.gov/planetary/apod'
 try:
     r = requests.get(endpoint, params=payload)
     data = r.json()

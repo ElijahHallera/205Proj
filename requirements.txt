@@ -13,6 +13,7 @@ Jinja2==2.11.2
 MarkupSafe==1.1.1
 prettyprinter==0.18.0
 Pygments==2.7.2
+python-dotenv==0.15.0
 requests==2.25.0
 urllib3==1.26.2
 visitor==0.1.3
