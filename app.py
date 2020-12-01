@@ -14,8 +14,6 @@ endpoint = os.getenv('ENDPOINT')
 
 def dateCheck(year, month, day):
     leap = False
-    # msg': 'Date must be between Jun 16, 1995 and Dec 01, 2020.'
-    # Since our range is so small we can account for all leap years available in this limit
 
     # Set lower bound
     if year == 1995:
@@ -31,6 +29,7 @@ def dateCheck(year, month, day):
                 # If we hit upper bound then we default to highest possible limit
                 return dateCheck(year, month, 1)
 
+    # Since our range is so small we can account for all leap years available in this limit
     # Check for leap year
     if year % 4 == 0:
         leap = True
@@ -63,6 +62,8 @@ def dateCheck(year, month, day):
     return f"{year}-{month}-{day}"
 
 
+# msg': 'Date must be between Jun 16, 1995 and Dec 01, 2020.'
+# random.randrange(start, up-to-but-not-including)
 year = random.randrange(1995, 2021)
 month = random.randrange(1, 13)
 day = random.randrange(1, 32)
@@ -82,6 +83,10 @@ payload = {
 
 # TODO: some results return 'media_type': 'video', this is wrong and we will encounter problems so we must
 #   try again and get a new result
+# TODO: some results will return hdurl: '<image>' with a second index '.jpg'. We must concatonate them together
+#   ex:   'hdurl':
+#         'https://apod.nasa.gov/apod/image/1706/Summer2017Sky_universe2go_2500.'
+#         'jpg',
 
 try:
     r = requests.get(endpoint, params=payload)
