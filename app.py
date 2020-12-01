@@ -3,20 +3,77 @@ from flask_bootstrap import Bootstrap
 import json
 import requests
 from prettyprinter import pprint
-from urllib.request import urlopen
-import ssl
+import random
 
+# TODO: protect your key
 key='ddoOH0QwXpcTGp5Hsyv8kxYDbdheTri8sDBp36qX'
 
-# ssl._create_default_https_context = ssl._create_unverified_context
-# my_site='https://api.nasa.gov/planetary/apod?api_key=' + key
-# site_html=urlopen(my_site)
-# print(site_html.read())
+def dateCheck(year, month, day):
+    Leap = False
+    # msg': 'Date must be between Jun 16, 1995 and Dec 01, 2020.'
+    # Since our range is so small we can account for all leap years available in this limit
+
+    # Set lower bound
+    if year == 1995:
+        if month == 6:
+            if day < 16:
+                # If we hit lower bound then we default to the lowest possible limit
+                return dateCheck(year, month, 16)
+
+    # Set upper bound
+    elif year == 2020:
+        if month == 12:
+            if day > 1:
+                # If we hit upper bound then we default to highest possible limit
+                return dateCheck(year, month, 1)
+
+    # Check for leap year
+    if year % 4 == 0:
+        Leap = True
+
+    # Check February
+    if month == 2:
+        # If its not a leap year and over limit 28 days, reassign day
+        if day > 28 and not Leap:
+            return dateCheck(year, month, random.randrange(1, 29))
+        # If leap year and over limit 29 days, reassign day
+        elif day > 29 and Leap:
+            return dateCheck(year, month, random.randrange(1, 30))
+
+    # Check April day limit
+    if month == 4 and day > 30:
+        return dateCheck(year, month, random.randrange(1, 31))
+
+    # Check June day limit
+    if month == 6 and day > 30:
+        return dateCheck(year, month, random.randrange(1, 31))
+
+    # Check September day limit
+    if month == 9 and day > 30:
+        return dateCheck(year, month, random.randrange(1, 31))
+
+    # Check November day limit
+    if month == 11 and day > 30:
+        return dateCheck(year, month, random.randrange(1, 31))
+
+    return f"{year}-{month}-{day}"
+
+
+year = random.randrange(1995, 2021)
+month = random.randrange(1, 13)
+day = random.randrange(1, 32)
+
+date = dateCheck(year, month, day)
 
 payload = {
     'api_key': key,
-    'start_date': '2020-05-01',
-    'end_date': '2020-05-01'
+    'date': date,
+    # HD images only
+    'hd': 'True'
+
+    # We use start_date and end_date if we want multiple pictures
+    # 'start_date': date,
+    # 'end_date': date
 }
 
 endpoint = 'https://api.nasa.gov/planetary/apod'
