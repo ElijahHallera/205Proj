@@ -1,0 +1,15 @@
+1. If you don't have a venv directory in your root directory
+    -Use command "python -m venv venv" to create the virtual environment directory
+
+2. Activate your virtual environment
+    -Linux/macOS: "venv/bin/activate"
+    -Windows: ".\venv\Scripts\activate"
+
+3. Make sure you have the correct version of pip
+    -Run this command to update "python.exe -m pip install --upgrade pip"
+
+4. Make sure you have the correct setuptools version
+    -Run command "pip install --upgrade setuptools"
+
+4. Now when you open app.py you should be getting a warning about packages needing to be installed.
+    -Use command "pip install -r requirements.txt"
