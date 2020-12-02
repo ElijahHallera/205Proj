@@ -9,5 +9,11 @@ def hello_world():
     return render_template('home.html')
 
 
+@app.route('/pic')
+def pic():
+    return render_template('pic.html')
+
+
+
 if __name__ == '__main__':
     app.run()
