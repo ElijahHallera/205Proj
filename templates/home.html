@@ -1,10 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Home</title>
+
+    <style>
+body {
+  background-color: black;
+
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+}
+
+.container img {
+  width: 100%;
+  height: auto;
+}
+
+.container .btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  background-color:black;
+  color: black;
+  font-size: 16px;
+  padding: 16px 30px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.container .btn:hover {
+  background-color: black;
+  color: gray;
+}
+</style>
+
+
 </head>
 <body>
+<div class="container">
+    <img src="static/images/19602.jpg" alt="earth" style="width:100%">
+    <button href="{{ url_for('pic') }}" class="btn">SHOW ME THE UNIVERSE</button>
+</div>
 This is the home page
 rodrigo
 </body>
