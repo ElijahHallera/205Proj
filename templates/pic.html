@@ -1,1 +1,140 @@
-hello
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <style>
+        /* this set background color to black and*/
+        body {
+            background-color: black;
+        }
+         /*this set tile to center and date next to each other */
+        .center{
+             display: flex;
+             align-items:baseline;
+             justify-content: center;
+             color: antiquewhite;
+            }
+        #title{
+            font-size:50px;
+        }
+        #date{
+            padding-left: 10px;
+        }
+        /*box for picture*/
+        .mainPic{
+             display: flex;
+             justify-content: center;
+           
+            }
+        .mainPic img {
+            width: 50%;
+            height: 50%;
+            }
+        /* set dicrition boundries  */
+        .dis {
+            display: flex;
+            flex-direction:column;
+            align-items: center;
+            justify-content: center;
+            color: antiquewhite;
+          
+        
+        }
+        .dis p{
+            font-size:40px;
+            
+        }
+        #disc{
+            padding-left: 75px;
+            padding-right: 75px;
+            font-size:15px;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            color: antiquewhite;
+            padding-left: 75px;
+            
+        }
+        #image{
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 75%;
+            height: 75%;
+            border: 5px solid antiquewhite;
+            border-radius: 9px;
+            
+
+        }
+        .container item{
+            flex-direction:column;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+
+        
+        
+    </style>
+
+
+</head>
+
+<body>
+    <div class="center">
+        <div id="title">
+            <p> Title</p>  
+        </div>
+        <div id="date">
+            <p id="date">date</p>
+        </div>
+    </div>
+    <div class="mainPic">
+        
+        <img src="static/images/19602.jpg" alt="earth" >  
+    
+    </div>
+    <div class="dis">
+        <p>Discrition</p>
+
+        <div id="disc">The history of turnpikes and canals in the United States began with work attempted and accomplished in the original
+    thirteen colonies, predicated on European technology. After gaining independence, the United States grew westward,
+    crossing the Appalachian Mountains with the admission of new states and then doubling in size with the Louisiana
+    Purchase in 1803. The only means of transportation at the time between the coastal states and interior lands remained on
+    water, by canoe, boat (e.g. keelboat or flatboat) and ship, or over land on foot and by pack animal. Recognizing the
+    success of Roman roads in unifying that empire, political and business leaders in the United States began to construct
+    roads and canals to connect the disparate parts of the nation.[1] </div>
+    </div>
+    <div class="container">
+        <item>
+            <h1 style="padding-left: 30%;">title </h1>
+            <img  id="image" src="static/images/19602.jpg" alt="earth">
+        </item>
+        
+        <item>
+            <h1 style="padding-left: 30%;">title </h1>
+            <img id="image"  src="static/images/19602.jpg" alt="earth">
+        </item>
+        </div>
+    <div class="container">
+        <item>
+            <h1 style="padding-left: 30%;">title </h1>
+            <img id="image" src="static/images/19602.jpg" alt="earth">
+        </item>
+    
+        <item>
+            <h1 style="padding-left: 30%;">title </h1>
+            <img id="image" src="static/images/19602.jpg" alt="earth">
+        </item>
+    </div>
+
+
+  
+
+</body>
+
+</html>

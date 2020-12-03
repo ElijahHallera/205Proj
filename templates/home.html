@@ -3,11 +3,11 @@
 <head>
 
     <style>
+/* this set background color to black and*/
 body {
   background-color: black;
-
 }
-
+/* this is all need for the button to be centered to the image at all times*/
 .container {
   position: relative;
   width: 100%;
@@ -34,21 +34,39 @@ body {
   border-radius: 5px;
   text-align: center;
 }
-
+/* action to be performed when hovering over button*/
 .container .btn:hover {
   background-color: black;
-  color: gray;
+  color: black;
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+
+
 }
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0f034a, 0 0 40px #0f034a, 0 0 50px #0f034a, 0 0 60px #0f034a, 0 0 70px rgb(126, 39, 82);
+  }
+  
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #460425, 0 0 40px460425, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+  }
+
 </style>
 
 
 </head>
 <body>
+<!-- show button with link to next page -->
 <div class="container">
     <img src="static/images/19602.jpg" alt="earth" style="width:100%">
-    <button href="{{ url_for('pic') }}" class="btn">SHOW ME THE UNIVERSE</button>
+    <a href="{{ url_for('pic') }}">
+    <button  class="btn"alt="button" onclick= "{{ url_for('pic') }}" >SHOW ME THE UNIVERSE</button>
+    </a>
 </div>
-This is the home page
-rodrigo
+
 </body>
 </html>
