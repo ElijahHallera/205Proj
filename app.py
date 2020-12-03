@@ -96,7 +96,6 @@ def dateCheck(year, month, day):
         We then use that result to get a json object with our api requests
 '''
 
-# onClick -> picRequest
 def picRequest():
 
     # random.randrange(start, up-to-but-not-including)
@@ -132,7 +131,7 @@ def picRequest():
         obj = parser(data)
         print(obj.copyright)
 
-        pic(obj, imgList)
+        return obj
 
     except Exception as inst:
         print(type(inst))
@@ -144,21 +143,22 @@ def picRequest():
 def hello_world():
 
     # Using next line for debugging, will delete later
-    picRequest()
     return render_template('home.html')
 
 
 @app.route('/pic')
-def pic(obj, imgList):
+def pic():
     '''
      processed images are stored in imgList
      We need to iterate through the list and display the images
      We can do this with javascript or we can hardcode the pass imgList[0], imgList[1]...etc
     '''
 
+    obj = picRequest()
+
     # return render_template('pic.html', hdurl=obj.hdurl, img1=imgList[0], img2=imgList[1])
-    # return render_template('pic.html', hdurl=obj.hdurl)
-    return render_template('pic.html')
+    return render_template('pic.html', hdurl=obj.hdurl)
+    # return render_template('pic.html')
 
 
 if __name__ == '__main__':
