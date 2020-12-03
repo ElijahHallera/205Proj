@@ -12,22 +12,46 @@ load_dotenv()
 key = os.getenv('MY_ENV_VAR')
 endpoint = os.getenv('ENDPOINT')
 
+app = Flask(__name__)
+Bootstrap(app)
+
+class parser():
+    def __init__(self, data):
+        self.copyright = data['copyright'] if len(data) > 7 else "No Copyright"
+        self.explanation = data["explanation"]
+        self.hdurl = data["hdurl"]
+        self.mediaType = data["media_type"]
+        self.title = data["title"]
+
+
+# TODO imageProcessing function
+# def imageProcessing(rawImageData):
+# Sudo:
+# PIL.image = rawImageData
+# list = list()
+# PIL.ImageProcesss(rawImageData)
+# list.append(processedImage1)
+# list.append(proccessedImageN)
+# return list
+
+
+'''
+    This function makes sure our date is valid for the api request.
+    Technically we don't need this because an exception is thrown if the request is bad,
+    which in turn calls the function recursively, generating a new date
+'''
 def dateCheck(year, month, day):
     leap = False
 
     # Set lower bound
-    if year == 1995:
-        if month == 6:
-            if day < 16:
-                # If we hit lower bound then we default to the lowest possible limit
-                return dateCheck(year, month, 16)
+    if year == 1995 and month == 6 and day < 16:
+        # If we hit lower bound then we default to the lowest possible limit
+        return dateCheck(year, month, 16)
 
     # Set upper bound
-    elif year == 2020:
-        if month == 12:
-            if day > 1:
-                # If we hit upper bound then we default to highest possible limit
-                return dateCheck(year, month, 1)
+    elif year == 2020 and month == 12 and day > 1:
+        # If we hit upper bound then we default to highest possible limit
+        return dateCheck(year, month, 1)
 
     # Since our range is so small we can account for all leap years available in this limit
     # Check for leap year
@@ -62,49 +86,80 @@ def dateCheck(year, month, day):
     return f"{year}-{month}-{day}"
 
 
-# msg': 'Date must be between Jun 16, 1995 and Dec 01, 2020.'
-# random.randrange(start, up-to-but-not-including)
-year = random.randrange(1995, 2021)
-month = random.randrange(1, 13)
-day = random.randrange(1, 32)
+'''
+        In this function we generate a random date between our NASA's limits (Jun 16, 1995 to Dec 01, 2020)
+        We then pass those parameters into a recursive function which checks and accounts for:
+            1. upper/lower bounds
+            2. leap years
+            3. Correct days of months
+        The result of the function is a valid date within our limits.
+        We then use that result to get a json object with our api requests
+'''
 
-date = dateCheck(year, month, day)
+# onClick -> picRequest
+def picRequest():
 
-payload = {
-    'api_key': key,
-    'date': date,
-    # HD images only
-    'hd': 'True'
+    # random.randrange(start, up-to-but-not-including)
+    year = random.randrange(1995, 2021)
+    month = random.randrange(1, 13)
+    day = random.randrange(1, 32)
+    date = dateCheck(year, month, day)
 
-    # We use start_date and end_date if we want multiple pictures
-    # 'start_date': date,
-    # 'end_date': date
-}
+    payload = {
+        'api_key': key,
+        'date': date,
+        'hd': 'True'
+        # We use start_date and end_date if we want multiple pictures
+        # 'start_date': date,
+        # 'end_date': date
+    }
 
-# TODO: some results return 'media_type': 'video', this is wrong and we will encounter problems so we must
-#   try again and get a new result
-# TODO: some results will return hdurl: '<image>' with a second index '.jpg'. We must concatonate them together
-#   ex:   'hdurl':
-#         'https://apod.nasa.gov/apod/image/1706/Summer2017Sky_universe2go_2500.'
-#         'jpg',
+    try:
+        r = requests.get(endpoint, params=payload)
+        data = r.json()
 
-try:
-    r = requests.get(endpoint, params=payload)
-    data = r.json()
-    pprint(data)
-except:
-    print('please try again')
+        pprint(data)
+        if data["media_type"] != 'image':
+            raise Exception("Result not an Image")
 
-app = Flask(__name__)
-Bootstrap(app)
+        # TODO:
+        #  use PIL image to get the raw image data and assign to variable
+        #  use the variable for image processing
+        # imgList = imageProcessing(data["hdurl"])
+        imgList = "This is a tempVariable. Will be a list instead like above"
+
+        ''' Parse the data for easier usability '''
+        obj = parser(data)
+        print(obj.copyright)
+
+        pic(obj, imgList)
+
+    except Exception as inst:
+        print(type(inst))
+        print(inst.args)
+        print("Trying again...")
+        picRequest()
 
 @app.route('/')
 def hello_world():
+
+    # Using next line for debugging, will delete later
+    picRequest()
     return render_template('home.html')
 
+
 @app.route('/pic')
-def pic():
+def pic(obj, imgList):
+    '''
+     processed images are stored in imgList
+     We need to iterate through the list and display the images
+     We can do this with javascript or we can hardcode the pass imgList[0], imgList[1]...etc
+    '''
+
+    # return render_template('pic.html', hdurl=obj.hdurl, img1=imgList[0], img2=imgList[1])
+    # return render_template('pic.html', hdurl=obj.hdurl)
     return render_template('pic.html')
+
 
 if __name__ == '__main__':
     app.run()
