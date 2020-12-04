@@ -11,5 +11,5 @@
 4. Make sure you have the correct setuptools version
     -Run command "pip install --upgrade setuptools"
 
-4. Now when you open app.py you should be getting a warning about packages needing to be installed.
+5. Now when you open app.py you should be getting a warning about packages needing to be installed.
     -Use command "pip install -r requirements.txt"
