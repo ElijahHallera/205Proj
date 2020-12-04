@@ -17,6 +17,7 @@ Bootstrap(app)
 
 class parser():
     def __init__(self, data):
+        self.picDate = data["date"]
         self.copyright = data['copyright'] if len(data) > 7 else "No Copyright"
         self.explanation = data["explanation"]
         self.hdurl = data["hdurl"]
@@ -157,7 +158,7 @@ def pic():
     obj = picRequest()
 
     # return render_template('pic.html', hdurl=obj.hdurl, img1=imgList[0], img2=imgList[1])
-    return render_template('pic.html', hdurl=obj.hdurl)
+    return render_template('pic.html', hdurl=obj.hdurl, title=obj.title, disc=obj.explanation, date=obj.picDate)
     # return render_template('pic.html')
 
 

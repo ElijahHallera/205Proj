@@ -1,0 +1,15 @@
+problem 1a.4: 0/3
+  response: b; correct: a
+  explanation: See the tip just before section 30.3 of the text.
+problem 2.not enough parameters for substr-cnt.sh: 0/5
+  test failed: test script test6.sh; return code = -1
+problem 3.each thread has 3 values: 0/7
+  test failed: code timed out
+problem 3.each thread has 6 values: 0/7
+  test failed: code timed out
+problem 3.threads have 1 and 6 values: 0/7
+  test failed: code timed out
+problem 3.threads have 0 and 6 values: 0/7
+  test failed: code timed out
+problem 3.each thread has many inputs: 0/7
+  test failed: code timed out
