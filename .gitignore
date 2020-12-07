@@ -177,6 +177,9 @@ cython_debug/
 # *.iml
 # *.ipr
 
+.vscode
+.vscode/
+
 # CMake
 cmake-build-*/
 
