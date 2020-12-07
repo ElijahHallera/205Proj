@@ -6,6 +6,7 @@ from prettyprinter import pprint
 import random
 import os
 from dotenv import load_dotenv
+from PIL import Image
 
 # These 3 lines take steps to protect private api key
 load_dotenv()
@@ -39,7 +40,7 @@ class parser():
 '''
     This function makes sure our date is valid for the api request.
     Technically we don't need this because an exception is thrown if the request is bad,
-    which in turn calls the function recursively, generating a new date
+    which in turn does a recursive call generating a new date and checking again, recursing if error
 '''
 def dateCheck(year, month, day):
     leap = False
@@ -142,10 +143,7 @@ def picRequest():
 
 @app.route('/')
 def hello_world():
-
-    # Using next line for debugging, will delete later
     return render_template('home.html')
-
 
 @app.route('/pic')
 def pic():
