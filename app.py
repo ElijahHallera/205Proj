@@ -127,7 +127,6 @@ def picRequest():
         #  use PIL image to get the raw image data and assign to variable
         #  use the variable for image processing
         # imgList = imageProcessing(data["hdurl"])
-        imgList = "This is a tempVariable. Will be a list instead like above"
 
         ''' Parse the data for easier usability '''
         obj = parser(data)
@@ -154,6 +153,7 @@ def pic():
     '''
 
     obj = picRequest()
+    imgList = imageProcessing(obj.hdurl)
 
     # return render_template('pic.html', hdurl=obj.hdurl, img1=imgList[0], img2=imgList[1])
     return render_template('pic.html', hdurl=obj.hdurl, title=obj.title, disc=obj.explanation, date=obj.picDate)
