@@ -129,6 +129,26 @@ def picRequest():
         # imgList = imageProcessing(data["hdurl"])
         imgList = "This is a tempVariable. Will be a list instead like above"
 
+        # if (my_list[my_index] == 'Grayscale'):
+        #     image = Image.open(f'images/{max_list[0][1]}.jpg')
+        #     new_list = [((a[0] + a[1] + a[2]) // 3,) * 3 for a in image.getdata()]
+        #     image.putdata(new_list)
+        #     image.show()
+        #     # self.new_win.show()
+        #
+        # if (my_list[my_index] == 'Negative'):
+        #     image = Image.open(f'images/{max_list[0][1]}.jpg')
+        #     negative_list = [(255 - p[0], 255 - p[1], 255 - p[2]) for p in image.getdata()]
+        #     image.putdata(negative_list)
+        #     image.show()
+        #     # self.new_win.show()
+        #
+        # if (my_list[my_index] == 'Sepia'):
+        #     image = Image.open(f'images/{max_list[0][1]}.jpg')
+        #     sepia_list = map(sepia, image.getdata())
+        #     image.putdata(list(sepia_list))
+        #     image.show()
+
         ''' Parse the data for easier usability '''
         obj = parser(data)
         print(obj.copyright)

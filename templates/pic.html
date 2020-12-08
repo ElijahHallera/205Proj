@@ -1,38 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>RESULTING PICTURE</title>
-    <script src="htmlscripts.js"></script>
 
     <style>
-    .btn {
-      background-color: DodgerBlue;
-      border: none;
-      color: white;
-      padding: 12px 30px;
-      cursor: pointer;
-      font-size: 20px;
-    }
-    .btn:hover {
-      background-color: RoyalBlue;
-    }
+        /* this set background color to black and*/
+        body {
+            background-color: black;
+        }
+         /*this set tile to center and date next to each other */
+        .center{
+             display: flex;
+             align-items:baseline;
+             justify-content: center;
+             color: antiquewhite;
+            }
+        #title{
+            font-size:50px;
+        }
+        #date{
+            padding-left: 10px;
+        }
+        /*box for picture*/
+        .mainPic{
+             display: flex;
+             justify-content: center;
 
-    .content {
-     max-width: 500px;
-     margin: auto;
-    }
+            }
+        .mainPic img {
+            width: 50%;
+            height: 50%;
+            }
+        /* set dicrition boundries  */
+        .dis {
+            display: flex;
+            flex-direction:column;
+            align-items: center;
+            justify-content: center;
+            color: antiquewhite;
+
+
+        }
+        .dis p{
+            font-size:40px;
+
+        }
+        #disc{
+            padding-left: 75px;
+            padding-right: 75px;
+            font-size:30px;
+        }
+        .container{
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            color: antiquewhite;
+            padding-left: 75px;
+
+        }
+        #image{
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 75%;
+            height: 75%;
+            border: 5px solid antiquewhite;
+            border-radius: 9px;
+
+
+        }
+        .container item{
+            flex-direction:column;
+            align-items: center;
+            justify-content: center;
+
+        }
+
     </style>
+
 
 </head>
 
 <body>
-    <div class="content">
-        <h1>HERE IS YOUR RESULT</h1>
-        <img src="https://apod.nasa.gov/apod/image/9807/m8_dfm_big.jpg" width="500px" height="500px">
-        <br>
-        <a href="https://apod.nasa.gov/apod/image/9807/m8_dfm_big.jpg" download="https://apod.nasa.gov/apod/image/9807/m8_dfm_big.jpg"><button class="btn">Download File</button></a>
+    <div class="center">
+        <div id="title">
+            <p> "{{title}}"</p>
+        </div>
+        <div id="date">
+            <p id="date">"{{date}}"</p>
+        </div>
     </div>
+    <div class="mainPic">
+
+        <img src="{{hdurl}}" alt="earth" >
+
+    </div>
+    <div class="dis">
+        <p>Description</p>
+
+        <div id="disc">"{{disc}}"</div>
+    </div>
+    <div class="container">
+        <item>
+            <h1 style="padding-left: 30%;">Sepia </h1>
+            <img  id="image" src="{{hdurl}}" alt="earth">
+        </item>
+
+        <item>
+            <h1 style="padding-left: 30%;">GrayScale </h1>
+            <img id="image"  src="{{hdurl}}" alt="earth">
+        </item>
+        </div>
+    <div class="container">
+        <item>
+            <h1 style="padding-left: 30%;">Negative </h1>
+            <img id="image" src="{{hdurl}}" alt="earth">
+        </item>
+
+        <item>
+            <h1 style="padding-left: 30%;">title </h1>
+            <img id="image" src="{{hdurl}}" alt="earth">
+        </item>
+    </div>
+
+
+
+
 </body>
 
 </html>
