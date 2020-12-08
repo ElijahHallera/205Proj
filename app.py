@@ -128,6 +128,19 @@ def picRequest():
         #  use the variable for image processing
         # imgList = imageProcessing(data["hdurl"])
 
+        # new_dictionary = {}
+        #
+        # def sepia(pixel):
+        #     if pixel[0] < 63:
+        #         r, g, b = int(pixel[0] * 1.1), pixel[1], int(pixel[2] * .9)
+        #     elif pixel[0] > 62 and pixel[0] < 192:
+        #         r, g, b = int(pixel[0] * 1.15), pixel[1], int(pixel[2] * .85)
+        #     else:
+        #         r = int(pixel[0] * 1.08)
+        #         if r > 255: r = 255
+        #         g, b = pixel[1], pixel[2] // 2
+        #     return r, g, b
+        #
         # if (my_list[my_index] == 'Grayscale'):
         #     image = Image.open(f'images/{max_list[0][1]}.jpg')
         #     new_list = [((a[0] + a[1] + a[2]) // 3,) * 3 for a in image.getdata()]
@@ -173,7 +186,7 @@ def pic():
     '''
 
     obj = picRequest()
-    imgList = imageProcessing(obj.hdurl)
+    # imgList = imageProcessing(obj.hdurl)
 
     # return render_template('pic.html', hdurl=obj.hdurl, img1=imgList[0], img2=imgList[1])
     return render_template('pic.html', hdurl=obj.hdurl, title=obj.title, disc=obj.explanation, date=obj.picDate)
