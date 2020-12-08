@@ -1,4 +1,4 @@
-certifi==2020.11.8
+certifi==2020.12.5
 chardet==3.0.4
 click==7.1.2
 colorama==0.4.4
@@ -11,8 +11,9 @@ idna==2.10
 itsdangerous==1.1.0
 Jinja2==2.11.2
 MarkupSafe==1.1.1
+Pillow==8.0.1
 prettyprinter==0.18.0
-Pygments==2.7.2
+Pygments==2.7.3
 python-dotenv==0.15.0
 requests==2.25.0
 urllib3==1.26.2
