@@ -7,6 +7,7 @@ import random
 import os
 from dotenv import load_dotenv
 from PIL import Image
+from io import BytesIO
 
 # These 3 lines take steps to protect private api key
 load_dotenv()
@@ -140,6 +141,45 @@ def picRequest():
         print("Trying again...")
         picRequest()
 
+def sepia(pixel):
+    if pixel[0] < 63:
+        r, g, b = int(pixel[0] * 1.1), pixel[1], int(pixel[2] * .9)
+    elif pixel[0] > 62 and pixel[0] < 192:
+        r, g, b = int(pixel[0] * 1.15), pixel[1], int(pixel[2] * .85)
+    else:
+        r = int(pixel[0] * 1.08)
+        if r > 255: r = 255
+        g, b = pixel[1], pixel[2] // 2
+    return r, g, b
+
+def imageProcessing(imageURL):
+
+    storageList = [];
+
+    response = requests.get(imageURL)
+    #     Filter the Image to Grayscale
+    # image = Image.open(BytesIO(response.content))
+    image = Image.open(imageURL)
+    new_list = [((a[0] + a[1] + a[2]) // 3,) * 3 for a in image.getdata()]
+    image.putdata(new_list)
+    storageList.append(image)
+
+    #     Filter the Image to Sepia
+    # image2 = Image.open(BytesIO(response.content))
+    image2 = Image.open(imageURL)
+    sepia_list = map(sepia, image.getdata())
+    image2.putdata(list(sepia_list))
+    storageList.append(image2)
+
+    #     Filter the Image to Negative
+    # image3 = Image.open(BytesIO(response.content))
+    image3 = Image.open(imageURL)
+    negative_list = [(255 - p[0], 255 - p[1], 255 - p[2]) for p in image.getdata()]
+    image3.putdata(negative_list)
+    storageList.append(image3)
+
+    return storageList
+
 @app.route('/')
 def hello_world():
     return render_template('home.html')
@@ -152,11 +192,12 @@ def pic():
      We can do this with javascript or we can hardcode the pass imgList[0], imgList[1]...etc
     '''
 
+
     obj = picRequest()
     imgList = imageProcessing(obj.hdurl)
 
     # return render_template('pic.html', hdurl=obj.hdurl, img1=imgList[0], img2=imgList[1])
-    return render_template('pic.html', hdurl=obj.hdurl, title=obj.title, disc=obj.explanation, date=obj.picDate)
+    return render_template('pic.html', hdurl=obj.hdurl, title=obj.title, disc=obj.explanation, date=obj.picDate, img1=imgList[0], img2=imgList[1], img3=imgList[2])
     # return render_template('pic.html')
 
 
