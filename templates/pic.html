@@ -95,7 +95,7 @@
             <h1 style="padding-left: 30%;"> Original </h1>
             <img id="image" src="{{hdurl}}" alt="earth" >
         </item>
-
+        <br>
         <item>
             <h1 style="padding-left: 30%;">Sepia </h1>
             <img id="image"  src="data:image/JPEG;base64, {{ img2 }}" alt="earth">
@@ -106,7 +106,7 @@
             <h1 style="padding-left: 30%;">Negative </h1>
             <img id="image" src="data:image/JPEG;base64, {{ img3 }}" alt="earth">
         </item>
-
+        <br>
         <item>
             <h1 style="padding-left: 30%;">Grayscale </h1>
             <img id="image" src="data:image/JPEG;base64, {{ img1 }}" alt="earth">
@@ -117,6 +117,12 @@
         <p>Description</p>
 
         <div id="disc">"{{disc}}"</div>
+        <br>
+        <br>
+        <button  class="btn"alt="button" onclick= "{{ url_for('pic') }}" >GENERATE PICTURE</button>
+        <br>
+        <br>
+        <button  class="btn"alt="button" onclick= "location.href = 'http://127.0.0.1:5000/';" >RETURN HOME</button>
     </div>
 
     <br>
