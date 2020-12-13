@@ -212,6 +212,10 @@ def imageProcessing(imageURL):
 def hello_world():
     return render_template('home.html')
 
+@app.route('/aboutUS')
+def aboutUs():
+    return render_template('aboutUs.html')
+
 @app.route('/pic')
 def pic():
     '''
