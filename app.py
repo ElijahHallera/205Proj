@@ -1,12 +1,13 @@
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
-import json
 import requests
 from prettyprinter import pprint
 import random
 import os
+import io
+import base64
 from dotenv import load_dotenv
-from PIL import Image
+from PIL import Image, ImageDraw
 from io import BytesIO
 
 # These 3 lines take steps to protect private api key
@@ -154,29 +155,44 @@ def sepia(pixel):
 
 def imageProcessing(imageURL):
 
-    storageList = [];
+    storageList = []
+    buffer = io.BytesIO()
+    buffer2 = io.BytesIO()
+    buffer3 = io.BytesIO()
 
     response = requests.get(imageURL)
+    print(response)
+
     #     Filter the Image to Grayscale
-    # image = Image.open(BytesIO(response.content))
-    image = Image.open(imageURL)
+    image = Image.open(BytesIO(response.content))
     new_list = [((a[0] + a[1] + a[2]) // 3,) * 3 for a in image.getdata()]
     image.putdata(new_list)
-    storageList.append(image)
+    image.save(buffer, format='JPEG')
+    buffer.seek(0)
+
+    data_uri = base64.b64encode(buffer.read()).decode('ascii')
+    print(data_uri)
+    storageList.append(data_uri)
 
     #     Filter the Image to Sepia
-    # image2 = Image.open(BytesIO(response.content))
-    image2 = Image.open(imageURL)
-    sepia_list = map(sepia, image.getdata())
+    image2 = Image.open(BytesIO(response.content))
+    sepia_list = map(sepia, image2.getdata())
     image2.putdata(list(sepia_list))
-    storageList.append(image2)
+    image2.save(buffer2, format='JPEG')
+    buffer2.seek(0)
+
+    data_uri2 = base64.b64encode(buffer2.read()).decode('ascii')
+    storageList.append(data_uri2)
 
     #     Filter the Image to Negative
-    # image3 = Image.open(BytesIO(response.content))
-    image3 = Image.open(imageURL)
+    image3 = Image.open(BytesIO(response.content))
     negative_list = [(255 - p[0], 255 - p[1], 255 - p[2]) for p in image.getdata()]
     image3.putdata(negative_list)
-    storageList.append(image3)
+    image3.save(buffer3, format='JPEG')
+    buffer3.seek(0)
+
+    data_uri3 = base64.b64encode(buffer3.read()).decode('ascii')
+    storageList.append(data_uri3)
 
     return storageList
 
@@ -196,10 +212,10 @@ def pic():
     obj = picRequest()
     imgList = imageProcessing(obj.hdurl)
 
-    # return render_template('pic.html', hdurl=obj.hdurl, img1=imgList[0], img2=imgList[1])
     return render_template('pic.html', hdurl=obj.hdurl, title=obj.title, disc=obj.explanation, date=obj.picDate, img1=imgList[0], img2=imgList[1], img3=imgList[2])
-    # return render_template('pic.html')
-
+    print(imgList[0])
+    print(imgList[1])
+    print(imgList[2])
 
 if __name__ == '__main__':
     app.run()
