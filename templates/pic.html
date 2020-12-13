@@ -1,127 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <style>
 
-    <style>
-        /* this set background color to black and*/
-        body {
-            background-color: black;
-        }
-         /*this set tile to center and date next to each other */
-        .center{
-             display: flex;
-             align-items:baseline;
-             justify-content: center;
-             color: antiquewhite;
+            /* this set background color to black and*/
+            body {
+                background-color: black;
             }
-        #title{
-            font-size:50px;
-        }
-        #date{
-            padding-left: 10px;
-        }
-        /*box for picture*/
-        .mainPic{
-             display: flex;
-             justify-content: center;
 
+            /*this set tile to center and date next to each other */
+            .center{
+                 display: flex;
+                 align-items:baseline;
+                 justify-content: center;
+                 color: antiquewhite;
             }
-        .mainPic img {
-            width: 50%;
-            height: 50%;
+
+            #title{
+                font-size:50px;
             }
-        /* set dicrition boundries  */
-        .dis {
-            display: flex;
-            flex-direction:column;
-            align-items: center;
-            justify-content: center;
-            color: antiquewhite;
 
+            #date{
+                padding-left: 10px;
+            }
 
-        }
-        .dis p{
-            font-size:40px;
+            .mainPic img {
+                width: 50%;
+                height: 50%;
+            }
 
-        }
-        #disc{
-            padding-left: 75px;
-            padding-right: 75px;
-            font-size:30px;
-        }
-        .container{
-            display: flex;
-            justify-content: center;
-            flex-direction: row;
-            color: antiquewhite;
-            padding-left: 75px;
+            /* set dicrition boundries  */
+            .dis {
+                display: flex;
+                flex-direction:column;
+                align-items: center;
+                justify-content: center;
+                color: antiquewhite;
+            }
 
-        }
-        #image{
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            width: 75%;
-            height: 75%;
-            border: 5px solid antiquewhite;
-            border-radius: 9px;
+            .dis p{
+                font-size:40px;
+            }
 
+            #disc{
+                padding-left: 75px;
+                padding-right: 75px;
+                font-size:30px;
+            }
 
-        }
-        .container item{
-            flex-direction:column;
-            align-items: center;
-            justify-content: center;
+            .container{
+                display: flex;
+                justify-content: center;
+                flex-direction: row;
+                color: antiquewhite;
+                padding-left: 75px;
+            }
 
-        }
+            #image{
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                width: 75%;
+                height: 75%;
+                border: 5px solid antiquewhite;
+                border-radius: 9px;
+            }
 
-    </style>
+            .container item{
+                flex-direction:column;
+                align-items: center;
+                justify-content: center;
+                padding-bottom: 15%;
+            }
 
+            .navbar {
+              overflow: hidden;
+              position: fixed;
+              top: 0;
+              width: 100%;
+            }
 
-</head>
+            a {
+                font-size: 1em;
+                color: black;
+                border-radius: 15px;
+                justify-content: space-between;
+            }
 
-<body>
-    <div class="center">
-        <div id="title">
-            <p> "{{title}}"</p>
-        </div>
-        <div id="date">
-            <p id="date">"{{date}}"</p>
-        </div>
-    </div>
-    <div class="container">
-        <item>
-            <h1 style="padding-left: 30%;"> Original </h1>
-            <img id="image" src="{{hdurl}}" alt="earth" >
-        </item>
+            nav li:hover{
+                font-size: 1.10em;
+                transition: .9s;
+                background-color: aqua;
+                color: black;
+            }
 
-        <item>
-            <h1 style="padding-left: 30%;">Sepia </h1>
-            <img id="image"  src="data:image/JPEG;base64, {{ img2 }}" alt="earth">
-        </item>
-        </div>
-    <div class="container">
-        <item>
-            <h1 style="padding-left: 30%;">Negative </h1>
-            <img id="image" src="data:image/JPEG;base64, {{ img3 }}" alt="earth">
-        </item>
+        </style>
+    </head>
 
-        <item>
-            <h1 style="padding-left: 30%;">Grayscale </h1>
-            <img id="image" src="data:image/JPEG;base64, {{ img1 }}" alt="earth">
-        </item>
-    </div>
-    <br>
-    <div class="dis">
-        <p>Description</p>
-
-        <div id="disc">"{{disc}}"</div>
-    </div>
+    <nav class="navbar navbar-inverse">
+          <div class="container-fluid">
+            <div class="navbar-header">
+              <a class="navbar-brand" href="http://127.0.0.1:5000/">Interstellar Image Generator</a>
+            </div>
+            <ul class="nav navbar-nav">
+              <li><a href="http://127.0.0.1:5000/">Home</a></li>
+              <li><a href="#">Mars Weather</a></li>
+              <li><a href="http://127.0.0.1:5000/aboutUS">About Us</a></li>
+              <li><a href="http://127.0.0.1:5000/pic"> Generate Another Photo </a></li>
+            </ul>
+          </div>
+    </nav>
 
     <br>
     <br>
+    <br>
+    <br>
 
-</body>
+    <body>
+        <div class="center">
+            <div id="title">
+                <p> "{{title}}"</p>
+            </div>
+            <div id="date">
+                <p id="date">"{{date}}"</p>
+            </div>
+        </div>
+        <div class="container">
+            <item>
+                <h1 style="padding-left: 30%;"> Original </h1>
+                <img id="image" src="{{hdurl}}" alt="earth" >
+            </item>
+            <br>
+            <item>
+                <h1 style="padding-left: 30%;">Sepia </h1>
+                <img id="image"  src="data:image/JPEG;base64, {{ img2 }}" alt="earth">
+            </item>
+            </div>
+        <div class="container">
+            <item>
+                <h1 style="padding-left: 30%;">Negative </h1>
+                <img id="image" src="data:image/JPEG;base64, {{ img3 }}" alt="earth">
+            </item>
+            <br>
+            <item>
+                <h1 style="padding-left: 30%;">Grayscale </h1>
+                <img id="image" src="data:image/JPEG;base64, {{ img1 }}" alt="earth">
+            </item>
+        </div>
+
+        <br>
+
+    {#    Description is displayed here#}
+        <div class="dis">
+            <p>Description</p>
+            <div id="disc">"{{disc}}"</div>
+            <br>
+            <br>
+        </div>
+
+        <br>
+        <br>
+
+    </body>
 
 </html>

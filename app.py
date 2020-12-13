@@ -7,7 +7,7 @@ import os
 import io
 import base64
 from dotenv import load_dotenv
-from PIL import Image, ImageDraw
+from PIL import Image
 from io import BytesIO
 
 # These 3 lines take steps to protect private api key
@@ -26,18 +26,6 @@ class parser():
         self.hdurl = data["hdurl"]
         self.mediaType = data["media_type"]
         self.title = data["title"]
-
-
-# TODO imageProcessing function
-# def imageProcessing(rawImageData):
-# Sudo:
-# PIL.image = rawImageData
-# list = list()
-# PIL.ImageProcesss(rawImageData)
-# list.append(processedImage1)
-# list.append(proccessedImageN)
-# return list
-
 
 '''
     This function makes sure our date is valid for the api request.
@@ -89,7 +77,6 @@ def dateCheck(year, month, day):
 
     return f"{year}-{month}-{day}"
 
-
 '''
         In this function we generate a random date between our NASA's limits (Jun 16, 1995 to Dec 01, 2020)
         We then pass those parameters into a recursive function which checks and accounts for:
@@ -122,25 +109,31 @@ def picRequest():
         data = r.json()
 
         pprint(data)
-        if data["media_type"] != 'image':
-            raise Exception("Result not an Image")
 
-        # TODO:
-        #  use PIL image to get the raw image data and assign to variable
-        #  use the variable for image processing
-        # imgList = imageProcessing(data["hdurl"])
+        # CALLING PICREQUEST HERE WHEN THERE IS AND IMAGE OR GIF
+        # THIS FORCES THE RECURSION RATHER THAN EXCEPTION UNTIL WE GET AN IMAGE
+        # THIS FIXED THE NONETYPE ERROR WE WERE GETTING
+        # THUS LEADS TO FINALLY RETURNING AN OBJ AT END.
+        if data["media_type"] != 'image':
+            picRequest()
+            # raise Exception("Result not an Image")
+
+        if data["url"][-3] == 'g' or data["hdurl"][-3] == 'g':
+            picRequest()
+            # raise Exception("Gif encountered")
 
         ''' Parse the data for easier usability '''
         obj = parser(data)
         print(obj.copyright)
 
+    finally:
         return obj
 
-    except Exception as inst:
-        print(type(inst))
-        print(inst.args)
-        print("Trying again...")
-        picRequest()
+    # except Exception as inst:
+    #     print(type(inst))
+    #     print(inst.args)
+    #     print("Trying again...")
+    #     picRequest()
 
 def sepia(pixel):
     if pixel[0] < 63:
@@ -155,6 +148,11 @@ def sepia(pixel):
 
 def imageProcessing(imageURL):
 
+    if(len(imageURL) == 0):
+        print("empty")
+    else:
+        print("PROCESSING IMAGE URL AND SAVING TO LIST")
+
     storageList = []
     buffer = io.BytesIO()
     buffer2 = io.BytesIO()
@@ -164,14 +162,22 @@ def imageProcessing(imageURL):
     print(response)
 
     #     Filter the Image to Grayscale
+    #     GRAYSCALE WILL NOT WORK IF THE IMAGE IS MEGA PIXELATED OR BLURRY OR HAS A BLACK BORDER AND TEXT
+    #     OTHERWISE THIS VERSION OF GRAYSCALE WORKS FOR IMAGES GENERATED
     image = Image.open(BytesIO(response.content))
-    new_list = [((a[0] + a[1] + a[2]) // 3,) * 3 for a in image.getdata()]
-    image.putdata(new_list)
-    image.save(buffer, format='JPEG')
+    resultingImage = Image.new('RGB', image.size)
+    for x in range(image.size[0]):
+        for y in range(image.size[1]):
+            r, g, b = image.getpixel((x, y))
+            if(r == 0 and g == 0 and b == 0):
+                resultingImage.putpixel((x, y), (0, 0, 0))
+            else:
+                gray = int(r * 0.2126 + g * 0.7152 + b * 0.0722)
+                resultingImage.putpixel((x, y), (gray, gray, gray))
+    resultingImage.save(buffer, format='JPEG')
     buffer.seek(0)
 
     data_uri = base64.b64encode(buffer.read()).decode('ascii')
-    print(data_uri)
     storageList.append(data_uri)
 
     #     Filter the Image to Sepia
@@ -194,11 +200,21 @@ def imageProcessing(imageURL):
     data_uri3 = base64.b64encode(buffer3.read()).decode('ascii')
     storageList.append(data_uri3)
 
+    if not storageList:
+        print("STORAGE LIST IS EMPTY")
+    else:
+        print("STORAGE LIST HAS ELEMENTS")
+        print("PROCESSING IS DONE")
+
     return storageList
 
 @app.route('/')
 def hello_world():
     return render_template('home.html')
+
+@app.route('/aboutUS')
+def aboutUs():
+    return render_template('aboutUs.html')
 
 @app.route('/pic')
 def pic():
@@ -208,14 +224,11 @@ def pic():
      We can do this with javascript or we can hardcode the pass imgList[0], imgList[1]...etc
     '''
 
-
     obj = picRequest()
+
     imgList = imageProcessing(obj.hdurl)
 
     return render_template('pic.html', hdurl=obj.hdurl, title=obj.title, disc=obj.explanation, date=obj.picDate, img1=imgList[0], img2=imgList[1], img3=imgList[2])
-    print(imgList[0])
-    print(imgList[1])
-    print(imgList[2])
 
 if __name__ == '__main__':
     app.run()
