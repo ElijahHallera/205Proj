@@ -90,41 +90,37 @@
             <p id="date">"{{date}}"</p>
         </div>
     </div>
-    <div class="mainPic">
-
-        <img src="{{hdurl}}" alt="earth" >
-
-    </div>
-    <div class="dis">
-        <p>Description</p>
-
-        <div id="disc">"{{disc}}"</div>
-    </div>
     <div class="container">
         <item>
-            <h1 style="padding-left: 30%;">Sepia </h1>
-            <img  id="image" src="{{img2}}" alt="earth">
+            <h1 style="padding-left: 30%;"> Original </h1>
+            <img id="image" src="{{hdurl}}" alt="earth" >
         </item>
 
         <item>
-            <h1 style="padding-left: 30%;">GrayScale </h1>
-            <img id="image"  src="{{img1}}" alt="earth">
+            <h1 style="padding-left: 30%;">Sepia </h1>
+            <img id="image"  src="data:image/JPEG;base64, {{ img2 }}" alt="earth">
         </item>
         </div>
     <div class="container">
         <item>
             <h1 style="padding-left: 30%;">Negative </h1>
-            <img id="image" src="{{img3}}" alt="earth">
+            <img id="image" src="data:image/JPEG;base64, {{ img3 }}" alt="earth">
         </item>
 
         <item>
-            <h1 style="padding-left: 30%;">title </h1>
-            <img id="image" src="{{hdurl}}" alt="earth">
+            <h1 style="padding-left: 30%;">Grayscale </h1>
+            <img id="image" src="data:image/JPEG;base64, {{ img1 }}" alt="earth">
         </item>
     </div>
+    <br>
+    <div class="dis">
+        <p>Description</p>
 
+        <div id="disc">"{{disc}}"</div>
+    </div>
 
-
+    <br>
+    <br>
 
 </body>
 
