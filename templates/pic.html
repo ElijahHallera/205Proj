@@ -119,7 +119,9 @@
         <div id="disc">"{{disc}}"</div>
         <br>
         <br>
-        <button  class="btn"alt="button" onclick= "{{ url_for('pic') }}" >GENERATE PICTURE</button>
+        <a href="{{ url_for('pic') }}">
+            <button  class="btn"alt="button" onclick= "{{ url_for('pic') }}" >GENERATE ANOTHER PICTURE</button>
+        </a>
         <br>
         <br>
         <button  class="btn"alt="button" onclick= "location.href = 'http://127.0.0.1:5000/';" >RETURN HOME</button>
