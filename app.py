@@ -114,26 +114,23 @@ def picRequest():
         # THIS FORCES THE RECURSION RATHER THAN EXCEPTION UNTIL WE GET AN IMAGE
         # THIS FIXED THE NONETYPE ERROR WE WERE GETTING
         # THUS LEADS TO FINALLY RETURNING AN OBJ AT END.
-        if data["media_type"] != 'image':
-            picRequest()
-            # raise Exception("Result not an Image")
-
-        if data["url"][-3] == 'g' or data["hdurl"][-3] == 'g':
-            picRequest()
-            # raise Exception("Gif encountered")
+        if data["media_type"] != 'image' or data["url"][-3] == 'g' or data["hdurl"][-3] == 'g':
+            raise Exception("Result not an Image")
 
         ''' Parse the data for easier usability '''
         obj = parser(data)
-        print(obj.copyright)
 
-    finally:
+    except Exception as inst:
+        print(type(inst))
+        print(inst.args)
+        print("Trying again...")
+        picRequest()
+
+    if obj is None:
+        picRequest()
+    else:
         return obj
 
-    # except Exception as inst:
-    #     print(type(inst))
-    #     print(inst.args)
-    #     print("Trying again...")
-    #     picRequest()
 
 def sepia(pixel):
     if pixel[0] < 63:
@@ -218,6 +215,7 @@ def aboutUs():
 
 @app.route('/pic')
 def pic():
+
     '''
      processed images are stored in imgList
      We need to iterate through the list and display the images
