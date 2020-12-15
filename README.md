@@ -33,5 +33,10 @@ Future Work: Mars Weather API
 ## Trello Board
 [Trello Board](https://trello.com/b/64Es5i7f/cst-205-final-board)
 
+## Known Issues
+Issue: Sometimes the app will respond with Internal Server Error when trying to request an image too quickly
+
+Solution: Slow down
+
 Disclaimer: All images are provided by NASA
 
