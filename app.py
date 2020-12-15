@@ -10,7 +10,7 @@ Trello: https://trello.com/b/64Es5i7f/cst-205-final-board
 
 Who Worked on What:
     Elijah: Wrote Image Filtering function and Some User Interface for html.
-    Jonathan:
+    Jonathan: Project Structure/Setup + dateCheck + picRequest functions
     Rodrigo:
 '''
 
