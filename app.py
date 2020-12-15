@@ -1,3 +1,16 @@
+'''
+Course: CST 205
+Title: NASA IMAGE GENERATOR
+Abstract: This App/Website will parse data from an API using JSON to randomly generate and
+          display an image from NASA including filtered versions of the image.
+Authors: Rodrigo Espinoza, Elijah Hallera, Jonathan Welham
+Date: December 14, 2020
+Github: https://github.com/Jonathan-Welham/205proj
+Trello: https://trello.com/b/64Es5i7f/cst-205-final-board
+'''
+
+
+
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
 import requests
@@ -10,14 +23,6 @@ from dotenv import load_dotenv
 from PIL import Image
 from io import BytesIO
 
-'''
-Course: CST 205
-Title: NASA IMAGE GENERATOR
-Abstract: This App/Website will parse data from an API using JSON to randomly generate and
-          display an image from NASA including filtered versions of the image.
-Authors: Rodrigo Espinoza, Elijah Hallera, Jonathan Welham
-Date: December 14, 2020
-'''
 
 # These 3 lines take steps to protect private api key
 load_dotenv()

@@ -1,4 +1,6 @@
 # Interstellar Image Generator
+This App/Website will parse data from an API using JSON to randomly generate and 
+display an image from NASA including filtered versions of the image.
 
 ![](https://img.shields.io/github/last-commit/Jonathan-Welham/205proj)
 ![](https://img.shields.io/github/repo-size/Jonathan-Welham/205proj)
@@ -20,5 +22,5 @@
 [LinkedIn](https://www.linkedin.com/in/elijah-hallera-892278199/)
 
 ## Trello Board
-https://trello.com/b/64Es5i7f/cst-205-final-board
+[Trello Board](https://trello.com/b/64Es5i7f/cst-205-final-board)
 
