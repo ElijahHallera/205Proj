@@ -10,6 +10,15 @@ from dotenv import load_dotenv
 from PIL import Image
 from io import BytesIO
 
+'''
+Course: CST 205
+Title: NASA IMAGE GENERATOR
+Abstract: This App/Website will parse data from an API using JSON to randomly generate and
+          display an image from NASA including filtered versions of the image.
+Authors: Rodrigo Espinoza, Elijah Hallera, Jonathan Welham
+Date: December 14, 2020
+'''
+
 # These 3 lines take steps to protect private api key
 load_dotenv()
 key = os.getenv('MY_ENV_VAR')
@@ -131,7 +140,9 @@ def picRequest():
     else:
         return obj
 
-
+'''
+    This function will take an image and convert it into Sepia
+'''
 def sepia(pixel):
     if pixel[0] < 63:
         r, g, b = int(pixel[0] * 1.1), pixel[1], int(pixel[2] * .9)
@@ -143,6 +154,12 @@ def sepia(pixel):
         g, b = pixel[1], pixel[2] // 2
     return r, g, b
 
+'''
+    This function will pass in the objects Image url and process the image into 3
+    image filers, Grayscale, Sepia, and Negatve. It will then encode the image into base64
+    to store it into a list that will be called when generating the image. In the html it 
+    will decode the base64 to display the filtered images.
+'''
 def imageProcessing(imageURL):
 
     if(len(imageURL) == 0):
