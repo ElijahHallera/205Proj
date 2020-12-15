@@ -24,3 +24,5 @@ display an image from NASA including filtered versions of the image.
 ## Trello Board
 [Trello Board](https://trello.com/b/64Es5i7f/cst-205-final-board)
 
+Disclaimer: All images are provided by NASA
+
