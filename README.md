@@ -19,3 +19,6 @@
 [Github](https://github.com/ElijahHallera)  
 [LinkedIn](https://www.linkedin.com/in/elijah-hallera-892278199/)
 
+## Trello Board
+https://trello.com/b/64Es5i7f/cst-205-final-board
+
