@@ -7,6 +7,11 @@ Authors: Rodrigo Espinoza, Elijah Hallera, Jonathan Welham
 Date: December 14, 2020
 Github: https://github.com/Jonathan-Welham/205proj
 Trello: https://trello.com/b/64Es5i7f/cst-205-final-board
+
+Who Worked on What:
+    Elijah: Wrote Image Filtering function and Some User Interface for html.
+    Jonathan:
+    Rodrigo:
 '''
 
 
